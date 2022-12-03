@@ -21,11 +21,10 @@ objects = []
 
 
 def myFunction():
-    print(f'{duf.pressing_time:0.2f}')
-    if 0.1 < duf.pressing_time < 0.15:
-        print('.')
-    elif 1.5 > duf.pressing_time > 0.4:
+    if duf.number > 2:
         print('-')
+    elif 0.2 < duf.number < 2:
+        print('.')
 
 def mourse_code():
     random = choices(list(abc.keys()), k=5)
