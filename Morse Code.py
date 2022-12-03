@@ -6,7 +6,6 @@ random = choices(list(abc.keys()), k=5)
 
 answers = 0
 sec = 0
-lak = True
 
 print('Тренажёр передачи сигнала азбукой Морзе \nОлейников production\n')
 
