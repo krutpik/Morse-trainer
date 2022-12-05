@@ -2,7 +2,7 @@ import sys
 import pygame
 from Button import Button
 from ABC import abc
-import time
+import Settings
 from random import choices
 
 pygame.init()
@@ -19,42 +19,20 @@ BLUE = (0, 0, 255)
 
 objects = []
 
+answers_time = Settings.answers_time
+answer = ''
+mistake = True
+
 
 def myFunction():
-    if duf.number > 2:
-        print('-')
-    elif 0.2 < duf.number < 2:
-        print('.')
-
-def mourse_code():
-    random = choices(list(abc.keys()), k=5)
-
-    answers = 0
-
-    print('Тренажёр передачи сигнала азбукой Морзе \nОлейников production\n')
-
-    answer = input('Готов ?\n')
-    if answer.upper() == 'ДА' or answer.upper() == 'Y':
-        tic = time.perf_counter()
-        for ran in random:
-            print(f'\n{ran}')
-            answer = input(': ')
-            if answer == abc[ran]:
-                answers += 1
-                print('Правильно')
-            else:
-                print('Неверно!')
-        toc = time.perf_counter()
-        print('Итог:\n')
-
-        if answers < 5:
-            print(f'Правильных ответов - {answers}')
-        else:
-            print('Всё верно!')
-            print(f"Вы ввели все буквы за {toc - tic:0.0f} секунд")
+    global answer
+    if button.number > Settings.pressed_dashes:
+        answer = f'{answer}-'
+    elif button.number > Settings.pressed_dot:
+        answer = f'{answer}.'
 
 
-duf = Button(38, 220, objects, screen, WHITE, myFunction)
+button = Button(38, 220, objects, screen, WHITE, myFunction)
 
 
 def key_event():
@@ -69,9 +47,26 @@ def button_spawn():
         object.process()
 
 
+print('Тренажёр передачи сигнала азбуки Морзе \nОлейников production\n')
+
 while True:
     screen.fill(WHITE)
     key_event()
     button_spawn()
     pygame.display.flip()
     fpsClock.tick(fps)
+    if Settings.answers_time == answers_time:
+        mistake = True
+        Settings.answers_time = 0
+        answer = ''
+        random = choices(list(abc.keys()))
+        for ran in random:
+            print(f'\n{ran}\n')
+    if answer == abc[ran]:
+        print('Правильно')
+        Settings.answers_time = answers_time - 1
+    elif Settings.answers_time == answers_time - 1 or (list(answer) > list(abc[ran]) and mistake):
+        mistake = False
+        Settings.answers_time = answers_time - 1
+        print('Неправильно!')
+    Settings.answers_time += 1

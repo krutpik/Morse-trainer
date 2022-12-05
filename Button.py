@@ -1,14 +1,12 @@
 import pygame
-import time
 
 
 class Button:
-    def __init__(self, x, y, objects, screen, WHITE, onclickFunction=None, buttonText='Ключ', onePress=True):
+    def __init__(self, x, y, objects, screen, WHITE, onclickFunction=None, buttonText='Ключ'):
         self.x = x
         self.y = y
         self.WHITE = WHITE
         self.onclickFunction = onclickFunction
-        self.onePress = onePress
         self.alreadyPressed = False
         self.screen = screen
         self.screen_rect = screen.get_rect()
@@ -22,12 +20,10 @@ class Button:
         objects.append(self)
 
     def process(self):
-        global toc, tic
         mousePos = pygame.mouse.get_pos()
         if self.buttonRect.collidepoint(mousePos):
             if pygame.mouse.get_pressed()[0]:
-                self.number += 1
-                time.sleep(0.5)
+                self.number += 0.5
             else:
                 self.onclickFunction()
                 self.number = 0
