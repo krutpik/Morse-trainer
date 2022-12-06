@@ -1,9 +1,10 @@
 import sys
 import pygame
 from Button import Button
-from ABC import abc
+import ABC
 import Settings
 from random import choices
+import Font
 
 pygame.init()
 fps = 60
@@ -14,7 +15,7 @@ screen = pygame.display.set_mode((width, height))
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
-GREEN = (0, 255, 0)
+GREEN = (0, 153, 0)
 BLUE = (0, 0, 255)
 
 objects = []
@@ -22,6 +23,8 @@ objects = []
 answers_time = Settings.answers_time
 answer = ''
 mistake = True
+result = ''
+result_color = RED
 
 
 def myFunction():
@@ -33,7 +36,10 @@ def myFunction():
 
 
 button = Button(38, 220, objects, screen, WHITE, myFunction)
-
+if Settings.language.upper() == 'EN':
+    abc = ABC.abc_en
+else:
+    abc = ABC.abc_ru
 
 def key_event():
     for event in pygame.event.get():
@@ -47,26 +53,30 @@ def button_spawn():
         object.process()
 
 
-print('Тренажёр передачи сигнала азбуки Морзе \nОлейников production\n')
+print('Тренажёр передачи сигнала азбукой Морзе \nОлейников production\n')
 
 while True:
     screen.fill(WHITE)
     key_event()
     button_spawn()
-    pygame.display.flip()
     fpsClock.tick(fps)
     if Settings.answers_time == answers_time:
         mistake = True
         Settings.answers_time = 0
-        answer = ''
         random = choices(list(abc.keys()))
         for ran in random:
-            print(f'\n{ran}\n')
+            answer = ''
+    Font.font(screen, ran, screen.get_rect().centerx, 70, 60, BLACK)
+    Font.font(screen, answer, screen.get_rect().centerx, 120, 60, BLACK)
     if answer == abc[ran]:
-        print('Правильно')
+        result = 'Правильно'
+        result_color = GREEN
         Settings.answers_time = answers_time - 1
-    elif Settings.answers_time == answers_time - 1 or (list(answer) > list(abc[ran]) and mistake):
+    elif Settings.answers_time == answers_time - 1 or (len(answer) > 5 and mistake):
         mistake = False
+        result = 'Неправильно!'
+        result_color = RED
         Settings.answers_time = answers_time - 1
-        print('Неправильно!')
     Settings.answers_time += 1
+    Font.font(screen, result, screen.get_rect().centerx, 25, 30, result_color)
+    pygame.display.flip()
