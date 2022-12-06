@@ -10,6 +10,8 @@ pygame.init()
 fps = 60
 fpsClock = pygame.time.Clock()
 width, height = 290, 450
+pygame_icon = pygame.image.load('icon.png')
+pygame.display.set_icon(pygame_icon)
 screen = pygame.display.set_mode((width, height))
 
 BLACK = (0, 0, 0)
