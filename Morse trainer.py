@@ -13,6 +13,7 @@ width, height = 290, 450
 pygame_icon = pygame.image.load('Image/icon.png')
 pygame.display.set_icon(pygame_icon)
 screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption('Morse trainer')
 
 
 BLACK = (0, 0, 0)
@@ -32,7 +33,6 @@ result_color = RED
 
 def myFunction():
     global answer
-    print('fd')
     if button.number > json_import.pressed_dashes:
         answer = f'{answer}-'
     elif button.number > json_import.pressed_dot:
