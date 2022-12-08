@@ -10,3 +10,12 @@ pressed_dashes = json_string['pressed_dashes']
 pressed_dot = json_string['pressed_dot']
 
 language = json_string['language']
+
+dash_song = json_string['dash_song']
+
+with open("ABC.json") as ABC:
+    json_string = jstyleson.load(ABC)
+
+abc_ru = json_string['abc_ru']    
+
+abc_en = json_string['abc_en']

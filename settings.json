@@ -6,7 +6,9 @@
     "pressed_dashes": 5,
     // default pressed_dot = 1.2
     "pressed_dot": 1.2,
-    
-    "language": "ru"
+    // default dash_song = "dash_song.mp3"
+    "dash_song": "dash_song.mp3",
+
+    "language": "en"
 
 }

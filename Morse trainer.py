@@ -1,7 +1,6 @@
 import sys
 import pygame
 from Button import Button
-import ABC
 from random import choices
 import Font
 import json_import
@@ -11,9 +10,10 @@ pygame.init()
 fps = 60
 fpsClock = pygame.time.Clock()
 width, height = 290, 450
-pygame_icon = pygame.image.load('icon.png')
+pygame_icon = pygame.image.load('Image/icon.png')
 pygame.display.set_icon(pygame_icon)
 screen = pygame.display.set_mode((width, height))
+
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -32,6 +32,7 @@ result_color = RED
 
 def myFunction():
     global answer
+    print('fd')
     if button.number > json_import.pressed_dashes:
         answer = f'{answer}-'
     elif button.number > json_import.pressed_dot:
@@ -40,9 +41,10 @@ def myFunction():
 
 button = Button(38, 220, objects, screen, WHITE, myFunction)
 if json_import.language.upper() == 'EN':
-    abc = ABC.abc_en
+    abc = json_import.abc_en
 else:
-    abc = ABC.abc_ru
+    abc = json_import.abc_ru
+
 
 def key_event():
     for event in pygame.event.get():
